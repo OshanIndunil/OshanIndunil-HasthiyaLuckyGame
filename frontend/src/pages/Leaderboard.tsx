@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import { ArrowLeft, Trophy, Calendar, Hash } from 'lucide-react';
+import { ArrowLeft, Trophy, Calendar, Hash, House, ChevronLeft, ChevronRight } from 'lucide-react';
 
 interface LeaderboardEntry {
   email: string;
@@ -42,23 +42,22 @@ const Leaderboard: React.FC = () => {
              <div className="bg-yellow-500/10 p-3 rounded-xl border border-yellow-500/20">
                 <Trophy className="w-8 h-8 text-yellow-500" />
              </div>
-             <div>
-                <h1 className="text-2xl font-bold text-white">Global Standings</h1>
-                <p className="text-slate-400 text-sm">Top players ranked by efficiency</p>
+             <div className='text-left'>
+                <p className="text-4xl font-bold text-white">Global Standings</p>
+                <div className="text-slate-400 text-sm">Top players ranked by efficiency</div>
              </div>
           </div>
           <button 
             onClick={() => navigate('/')} 
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 px-4 py-2 rounded-lg border border-slate-700"
+            className="flex items-center gap-2 text-slate-400 hover:text-slate-700 transition-colors bg-slate-800 hover:bg-slate-700 px-4 py-4 rounded-xl border border-slate-700"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to Home
+             <House className='w-6 h-6'/>
           </button>
         </div>
 
-        {/* Table Container */}
         <div className="bg-slate-800 rounded-xl shadow-2xl border border-slate-700 overflow-hidden">
           <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse">
+            <table className="w-[600px] text-left border-collapse">
               <thead>
                 <tr className="bg-slate-900/50 text-slate-400 text-xs uppercase tracking-wider font-semibold">
                   <th className="p-5 w-20">Rank</th>
@@ -81,8 +80,8 @@ const Leaderboard: React.FC = () => {
                     const rank = ((page - 1) * 10) + index + 1;
                     return (
                     <tr key={index} className="hover:bg-slate-700/50 transition duration-150 group">
-                      <td className="p-5 font-bold text-slate-500 group-hover:text-white">
-                        <span className={`inline-flex items-center justify-center w-8 h-8 rounded-full ${rank === 1 ? 'bg-yellow-500 text-slate-900' : rank === 2 ? 'bg-gray-400 text-slate-900' : rank === 3 ? 'bg-orange-700 text-slate-200' : 'bg-slate-700 text-slate-400'}`}>
+                      <td className="p-5 font-bold text-slate-500 group-hover:text-slate-700">
+                        <span className={`inline-flex items-center justify-center w-10 h-10 rounded-full p-2 ${rank === 1 ? 'bg-yellow-500 text-slate-900' : rank === 2 ? 'bg-gray-400 text-slate-900' : rank === 3 ? 'bg-orange-700 text-slate-200' : 'bg-slate-700 text-slate-400'}`}>
                             {rank === 1 || rank === 2 || rank === 3 ? <Trophy className="w-4 h-4" /> : `#${rank}`}
                         </span>
                       </td>
@@ -98,22 +97,21 @@ const Leaderboard: React.FC = () => {
             </table>
           </div>
 
-          {/* Pagination */}
           <div className="p-4 bg-slate-900/30 border-t border-slate-700 flex justify-between items-center">
             <button
               onClick={() => setPage((prev) => Math.max(prev - 1, 1))}
               disabled={page === 1}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              className="px-2 py-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
-              Previous
+             <ChevronLeft className="w-6 h-6" />
             </button>
             <span className="text-slate-500 text-sm">Page {page} of {totalPages}</span>
             <button
               onClick={() => setPage((prev) => (page < totalPages ? prev + 1 : prev))}
               disabled={page >= totalPages}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
+              className="px-2 py-2 rounded-lg text-sm font-medium text-slate-400 hover:bg-slate-700 disabled:opacity-50 disabled:cursor-not-allowed transition"
             >
-              Next
+              <ChevronRight className='w-6 h-6'/>
             </button>
           </div>
         </div>

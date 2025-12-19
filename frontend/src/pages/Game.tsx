@@ -39,7 +39,7 @@ const Game: React.FC = () => {
         generatedNumbers: numbers
       });
       if (response.data.success) {
-        // Add a small delay for dramatic effect
+        
         setTimeout(() => setScore(response.data.score), 800);
       }
     } catch (err) {
@@ -51,10 +51,10 @@ const Game: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-slate-900 flex flex-col items-center justify-center p-4">
-      {/* Top Bar */}
+     
       <div className="absolute top-6 right-6">
-         <button onClick={() => navigate('/')} className="text-slate-500 hover:text-white transition">
-            <LogOut className="w-6 h-6" />
+         <button onClick={() => navigate('/')} className="text-slate-500 p-2 rounded-lg hover:text-slate-700 transition">
+            <LogOut className=" w-8 h-8" />
          </button>
       </div>
 
@@ -64,7 +64,6 @@ const Game: React.FC = () => {
           <p className="text-slate-400">Tap the mystery boxes to generate your lucky numbers.</p>
         </div>
 
-        {/* The 4 Buttons Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-12">
           {numbers.map((num, index) => (
             <div key={index} className="flex flex-col items-center group">
@@ -89,7 +88,6 @@ const Game: React.FC = () => {
           ))}
         </div>
 
-        {/* Loading / Result Area */}
         <div className="h-48 flex items-center justify-center">
             {loading && (
             <div className="flex flex-col items-center gap-3 text-indigo-400 animate-pulse">
@@ -110,7 +108,7 @@ const Game: React.FC = () => {
                 
                 <button
                 onClick={() => navigate('/leaderboard')}
-                className="w-full bg-slate-700 hover:bg-slate-600 text-white font-semibold py-3 px-6 rounded-lg transition-all"
+                className="w-full bg-slate-700 hover:bg-slate-600 text-slate-700 font-semibold py-3 px-6 rounded-lg transition-all"
                 >
                 Check Global Leaderboard
                 </button>

@@ -48,9 +48,9 @@ const Welcome: React.FC = () => {
           </div>
         </div>
 
-        <h1 className="text-3xl font-extrabold text-center text-white mb-2 tracking-tight">
+        <p className="text-4xl font-extrabold text-center text-white mb-3 tracking-tight ">
           Hasthiya Lucky 4
-        </h1>
+        </p>
         <p className="text-slate-400 text-center mb-8 text-sm">
           Enter your email to test your luck and software skills.
         </p>
@@ -78,7 +78,7 @@ const Welcome: React.FC = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
+            className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
           >
             {loading ? 'Checking...' : (
                 <>
@@ -91,7 +91,7 @@ const Welcome: React.FC = () => {
         <div className="mt-8 pt-6 border-t border-slate-700 text-center">
           <button 
             onClick={() => navigate('/leaderboard')}
-            className="text-slate-400 hover:text-white text-sm flex items-center justify-center gap-2 mx-auto transition-colors"
+            className="bg-yellow-600 text-slate-600 hover:text-slate-900 text-sm flex items-center justify-center px-4 py-2 rounded-md gap-2 mx-auto transition-colors"
           >
             <Trophy className="w-4 h-4" /> View Leaderboard
           </button>

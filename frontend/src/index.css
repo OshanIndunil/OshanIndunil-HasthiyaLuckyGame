@@ -1,23 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-body {
-  font-family: 'Inter', sans-serif;
-  @apply bg-slate-900 text-slate-200 antialiased;
-}
-
-/* Custom Animation for the Game Result */
-@keyframes bounce-in {
-  0% { transform: scale(0.9); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-.animate-bounce-in {
-  animation: bounce-in 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
+@import "tailwindcss";
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -48,14 +29,14 @@ body {
   place-items: center;
   min-width: 320px;
   min-height: 100vh;
-}
+  background-color:#0f172b;}
 
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
 
-button {
+/*button {
   border-radius: 8px;
   border: 1px solid transparent;
   padding: 0.6em 1.2em;
@@ -72,7 +53,7 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-}
+}*/
 
 @media (prefers-color-scheme: light) {
   :root {
