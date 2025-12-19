@@ -2,15 +2,19 @@ import express, { Express, Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import db from './db';
+import gameRoutes from './routes/gameRoutes';
 
 dotenv.config();
 
-// Initialize the Express application
 const app: Express = express();
 const PORT = process.env.PORT || 3000;
 
+// Middleware
 app.use(cors());
 app.use(express.json());
+
+app.use('/api', gameRoutes);
+
 
 app.get('/', (req: Request, res: Response) => {
     res.send('Hasthiya Lucky 4 Backend is Running!');
