@@ -55,7 +55,7 @@ export const submitScore = async (req: Request, res: Response): Promise<void> =>
              res.status(403).json({ error: "Game already played." });
              return;
         }
-
+        // Calculate Score
         let totalDifference = 0;
         
         for (let i = 0; i < 4; i++) {

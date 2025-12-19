@@ -1,45 +1,47 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import { Gamepad2, Mail, Trophy, ArrowRight } from 'lucide-react';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Gamepad2, Mail, Trophy, ArrowRight } from "lucide-react";
+import { startGame } from "../services";
+import * as EmailValidator from 'email-validator';
 
 const Welcome: React.FC = () => {
-  const [email, setEmail] = useState('');
-  const [error, setError] = useState('');
+  const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setError('');
-    
+    setError("");
+
     if (!email) {
-      setError('Please enter your email.');
+      setError("Please enter your email.");
       return;
     }
 
-    setLoading(true);
-    try {
-      const response = await axios.post('http://localhost:3000/api/start-game', { email });
-      if (response.status === 200) {
-        localStorage.setItem('userEmail', email);
-        navigate('/game');
-      }
-    } catch (err: any) {
-      if (err.response && err.response.status === 403) {
-        setError('⚠️ This email has already played the game.');
-      } else {
-        setError('Server error. Please try again.');
-      }
-    } finally {
-      setLoading(false);
+    if (!EmailValidator.validate(email)) {
+      setError("Please enter a valid email address.");
+      return;
     }
+  
+    setLoading(true);
+
+    const response = await startGame(email);
+    if (response?.status === 200) {
+      localStorage.setItem("userEmail", email);
+      navigate("/game");
+    }
+
+    if (response.message) {
+      setError(response.message);
+    }
+
+    setLoading(false);
   };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-slate-900 px-4">
       <div className="w-full max-w-md bg-slate-800 border border-slate-700 rounded-2xl shadow-2xl overflow-hidden p-8 relative">
-      
         <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500"></div>
 
         <div className="flex justify-center mb-6">
@@ -54,7 +56,7 @@ const Welcome: React.FC = () => {
         <p className="text-slate-400 text-center mb-8 text-sm">
           Enter your email to test your luck and software skills.
         </p>
-        
+
         <form onSubmit={handleSubmit} className="space-y-6">
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -80,17 +82,19 @@ const Welcome: React.FC = () => {
             disabled={loading}
             className="w-full flex items-center justify-center gap-2 bg-indigo-600 hover:bg-indigo-500 text-slate-900 font-bold py-3 px-4 rounded-lg transition-all duration-200 transform hover:scale-[1.02] active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-lg shadow-indigo-500/20"
           >
-            {loading ? 'Checking...' : (
-                <>
-                    Start Game <ArrowRight className="w-5 h-5" />
-                </>
+            {loading ? (
+              "Checking..."
+            ) : (
+              <>
+                Start Game <ArrowRight className="w-5 h-5" />
+              </>
             )}
           </button>
         </form>
 
         <div className="mt-8 pt-6 border-t border-slate-700 text-center">
-          <button 
-            onClick={() => navigate('/leaderboard')}
+          <button
+            onClick={() => navigate("/leaderboard")}
             className="bg-yellow-600 text-slate-600 hover:text-slate-900 text-sm flex items-center justify-center px-4 py-2 rounded-md gap-2 mx-auto transition-colors"
           >
             <Trophy className="w-4 h-4" /> View Leaderboard
